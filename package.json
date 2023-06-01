@@ -1,0 +1,26 @@
+{
+  "name": "esbuild-plugin-alias",
+  "description": "esbuild path aliases using (t|j)sconfig.json",
+  "version": "0.0.0",
+  "license": "MIT",
+  "homepage": "https://github.com/skedee/esbuild-plugin-alias",
+  "author": "Chad Oliver",
+  "keywords": [
+    "esbuild",
+    "alias"
+  ],
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "node build.js",
+    "postinstall": "node build.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.17.19",
+    "files-folder": "^1.2.4"
+  },
+  "dependencies": {
+    "esbuild-plugin-copy": "^2.1.1"
+  }
+}
