@@ -2,13 +2,13 @@ import esbuild from 'esbuild'
 import { copy } from 'esbuild-plugin-copy';
 import esbuildPluginAlias from './esbuildPluginAlias.js';
 
-export function execute(filesAll, bundle, minify, sourcemap, opts) {
+export function execute(filesAll, bundleFlag, minifyFlag, sourcemapFlag, opts) {
   esbuild
       .build({
           entryPoints: filesAll,
-          bundle: bundle,
-          minify: minify,
-          sourcemap: sourcemap,  // helpful for debugging
+          bundle: bundleFlag,
+          minify: minifyFlag,
+          sourcemap: sourcemapFlag,  // helpful for debugging
           target: ['node18'],
           platform: 'node',
           allowOverwrite: true,
