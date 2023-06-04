@@ -19,7 +19,7 @@ export function execute(filesAll, bundleFlag, minifyFlag, sourcemapFlag, opts) {
               assets: [
                 {
                   from: ['./src/**/*.json'],
-                  to: ['./'],
+                  to: ['../'],
                 },
               ],
             }),
