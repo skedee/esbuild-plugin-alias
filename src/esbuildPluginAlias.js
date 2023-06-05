@@ -1,18 +1,15 @@
 import fs from "fs";
 import path from "node:path";
 
-/*
+/**
  * esbuildPluginAlias - Is used to replace alias (@service) with the absolute path during bundling.
  * Support files types include (.js, .jsx, .ts, .css)
- *
- * @param: opts {
- *                outDir:  'directory where esbuild writes.'
- *                testDir: 'directory where esbuild writes test files.'
- *                importPrefix: 'alias used to access test-helper classes/functions. the absolute path
- *                         will resolve to testDir.'
- *              }
- */
 
+ * @param {*} opts { outDir: 'directory where esbuild writes.'
+ *                   testDir: 'directory where esbuild writes test files.'
+ *                   importPrefix: 'alias used to access test-helper classes/functions. the absolute path
+ *                       will resolve to dist.' }
+ */
 export default function esbuildPluginAlias(opts) {
   let config;
   let outDir = "dist";
