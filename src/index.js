@@ -1,4 +1,6 @@
+// plugin
 import esbuildPluginAlias from './esbuildPluginAlias.js';
-import { execute } from './esbuildExecute.js';
+// example build scripts for node and browser
+import { buildNode, buildBrowser } from './esbuildExecute.js';
 
-export { execute, esbuildPluginAlias };
+export { esbuildPluginAlias, buildNode, buildBrowser };

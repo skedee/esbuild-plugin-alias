@@ -77,7 +77,7 @@ export default function esbuildPluginAlias (opts) {
         console.log('esbuild-plugin-alias started');
       });
       // // find all js, jsx, and css files in the resolveDir
-      build.onResolve({ filter: /.\.(jsx|js|css)$/, namespace: "file" }, args => {
+      build.onResolve({ filter: /.\.(jsx|js|css|json)$/, namespace: "file" }, args => {
         return { path: path.join(args.resolveDir, args.path), pluginData: path.join(args.resolveDir, outDir, '/') };
       });
       // Load ".css files

@@ -5,14 +5,14 @@
 * esbuild only natively supports paths resolution for bundling scenario.
 * esm exploded minified builds are usefull for creating shareable components for both node and
 browser projects.
-* single location to configure path aliases for both intellisene and bundling using (t|j)config.json
-* configure the source and destination path in (t|j)config.json
+* single location to configure path aliases for both intellisene and bundling using (t|s)config.json
+* configure the source and destination path in (t|s)config.json
 
-## (t|j)config.json
-* (t|j)config.json are config files using by mscode.
+## (t|s)config.json
+* (t|s)config.json are config files using by mscode.
 * mscode supports configuring
-intellisene aliaes using (t|j)config.json, which helps navigating a project.
-* unfortunately (t|j)config.json aliases are not natively used when bundling.
+intellisene aliaes using (t|s)config.json, which helps navigating a project.
+* unfortunately (t|s)config.json aliases are not natively used when bundling.
 
 ## install plugin
 ```
