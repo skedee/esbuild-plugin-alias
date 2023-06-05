@@ -1,10 +1,25 @@
 import fs from "fs";
 import path from "node:path";
+
+/*
+ * esbuildPluginAlias - Is used to replace alias (@service) with the absolute path during bundling.
+ * Support files types include (.js, .jsx, .ts, .css)
+ *
+ * @param: opts {
+ *                outDir:  'directory where esbuild writes.'
+ *                testDir: 'directory where esbuild writes test files.'
+ *                importPrefix: 'alias used to access test-helper classes/functions. the absolute path
+ *                         will resolve to testDir.'
+ *              }
+ */
+
 export default function esbuildPluginAlias(opts) {
   let config;
   let outDir = "dist";
   let testDir = "tests";
   let importPrefix = "dist";
+
+  // check for (t|s)config.json
   if (fs.existsSync("./tsconfig.json")) {
     config = JSON.parse(fs.readFileSync("./tsconfig.json"));
   } else if (fs.existsSync("./jsconfig.json")) {
@@ -13,9 +28,13 @@ export default function esbuildPluginAlias(opts) {
     console.error("esbuild-plugin-alias failed-reading: { tsconfig.json, jsconfig.json }");
     throw "esbuild-plugin-alias failed-reading: { tsconfig.json, jsconfig.json }";
   }
-  if (opts === void 0) {
+
+  // use default values for opts
+  if (opts === undefined) {
     console.log("opts: missing, default-values {outDir: dist, importPrefix: dist, testDir: tests} ");
-  } else {
+  }
+  // use user defined values for opts
+  else {
     if (opts.outDir) {
       outDir = opts.outDir;
       importPrefix = outDir;
@@ -33,7 +52,7 @@ export default function esbuildPluginAlias(opts) {
   return {
     name: "esbuild-plugin-alias",
     setup(build) {
-      let countAll = 0;
+      let countAll = 0;  // total number alias found
       const replaceAlias = async (args, loader) => {
         let loaderFile = await fs.promises.readFile(args.path, "utf8");
         let count = 0;
@@ -41,7 +60,9 @@ export default function esbuildPluginAlias(opts) {
           aliasPath = aliasPath.replace("*", "");
           let aliasPathNew = aliasPath.replace("@", "");
           let regExpression = new RegExp(`${aliasPath}`, "g");
-          count = count + (loaderFile.match(regExpression) || []).length;
+          count = count + (loaderFile.match(regExpression) || []).length;  // count of the found alias in the current file
+
+          // determine the absolute path that should be used to replace the alias
           if (aliasPathNew === "/") {
             aliasPathNew = `${args.pluginData}`;
           }
@@ -91,4 +112,3 @@ export default function esbuildPluginAlias(opts) {
   };
 }
 ;
-//# sourceMappingURL=esbuildPluginAlias.js.map
