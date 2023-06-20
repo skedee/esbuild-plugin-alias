@@ -2,6 +2,34 @@ import esbuild from 'esbuild'
 import esbuildPluginAlias from './esbuildPluginAlias.js';
 
 /**
+ * watchNode - esbuild watch example for node applications.
+
+ * @param {Array} filesAll list of files to include in bundle
+ * @param {Map} opts
+ */
+export async function watchNode(filesAll, opts) {
+    let ctx = await esbuild.context({
+        entryPoints: filesAll,
+        bundle: false,
+        minify: false,
+        sourcemap: true,
+        // helpful for debugging
+        format: "esm",
+        platform: "node",
+        target: ["esnext"],
+        allowOverwrite: true,
+        outdir: opts.outDir,
+        plugins: [
+            esbuildPluginAlias(opts)
+        ]
+    }).catch((error) => {
+        process.exit(1);
+    });
+
+    await ctx.watch();
+}
+
+/**
  * buildNode - esbuild example for node applications.
  *             configured build options, format: esm, platform: node, target: esnext.
  * @param {Array} filesAll list of files to include in bundle
